@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Work | STUDIO ARCHITECT</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f2f0ed",
+                    "secondary-fixed": "#ffdeae",
+                    "on-surface": "#1b1c1a",
+                    "surface-bright": "#fbf9f5",
+                    "tertiary-fixed": "#e8e2d9",
+                    "on-primary-fixed": "#1c1b19",
+                    "sand": "#F2EDE4",
+                    "fog": "#E8E4DC",
+                    "tertiary-container": "#1d1b16",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#868380",
+                    "on-secondary-fixed-variant": "#59431d",
+                    "on-surface-variant": "#494740",
+                    "brass-lt": "#D4B896",
+                    "secondary-fixed-dim": "#e3c291",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#1b1c1a",
+                    "primary-fixed-dim": "#cac6c2",
+                    "surface-container-high": "#eae8e4",
+                    "tertiary-fixed-dim": "#cbc6be",
+                    "on-primary-fixed-variant": "#484644",
+                    "error": "#ba1a1a",
+                    "primary-container": "#1c1b19",
+                    "primary": "#000000",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f5f3ef",
+                    "charcoal-2": "#2A2924",
+                    "on-secondary-fixed": "#281900",
+                    "secondary-container": "#fddba9",
+                    "tertiary": "#000000",
+                    "on-tertiary-container": "#87837c",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#e6e2de",
+                    "slate-2": "#6B6763",
+                    "on-secondary-container": "#785e36",
+                    "surface-dim": "#dbdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "ink": "#1C1B19",
+                    "surface-variant": "#e4e2de",
+                    "outline": "#7a776f",
+                    "surface-container-highest": "#e4e2de",
+                    "deep-dark": "#141412",
+                    "secondary": "#735a33",
+                    "surface": "#fbf9f5",
+                    "brass-dk": "#7A5F38",
+                    "background": "#fbf9f5",
+                    "surface-tint": "#605e5b",
+                    "outline-variant": "#cbc6bd",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#494640",
+                    "inverse-surface": "#30312e",
+                    "on-tertiary-fixed": "#1d1b16",
+                    "inverse-primary": "#cac6c2",
+                    "surface-container": "#efeeea"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter-min": "1.5rem",
+                    "component-gap": "1.5rem",
+                    "section-gap-max": "9rem",
+                    "base-unit": "4px",
+                    "gutter-max": "4rem",
+                    "section-gap-min": "5rem",
+                    "max-width": "1280px"
+            },
+            "fontFamily": {
+                    "body-main": ["DM Sans"],
+                    "headline-section": ["EB Garamond"],
+                    "ui-eyebrow": ["DM Sans"],
+                    "nav-button": ["DM Sans"],
+                    "display-hero": ["EB Garamond"],
+                    "headline-section-mobile": ["EB Garamond"],
+                    "card-heading": ["EB Garamond"],
+                    "caption": ["DM Sans"],
+                    "display-hero-mobile": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "body-main": ["15px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                    "headline-section": ["44px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "ui-eyebrow": ["11px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "nav-button": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.08em", "fontWeight": "500"}],
+                    "display-hero": ["96px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                    "headline-section-mobile": ["28px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "card-heading": ["22px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "caption": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-hero-mobile": ["52px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image-container {
+            overflow: hidden;
+            background: #e4e2de;
+            aspect-ratio: 4/5;
+        }
+
+        .project-card img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-main selection:bg-brass-lt selection:text-charcoal-2 overflow-x-hidden">
+    <!-- Custom trailing cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <div class="cursor-label" id="cursor-label"></div>
+
+    <!-- TopNavBar -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 ease-in-out">
+        <div class="flex justify-between items-center px-6 md:px-16 py-4 w-full max-w-max-width mx-auto">
+            <a class="font-headline-section text-2xl tracking-tighter text-ink" href="index.html">
+                STUDIO ARCHITECT
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="font-nav-button text-nav-button uppercase text-secondary border-b border-secondary" href="work.html">Portfolio</a>
+                <a class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-secondary transition-colors duration-250" href="index.html">Practice</a>
+                <a class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-secondary transition-colors duration-250" href="services.html">Services</a>
+                <a class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-secondary transition-colors duration-250" href="contact.html">Contact</a>
+            </nav>
+            <button class="hidden md:block bg-primary text-on-primary font-nav-button text-nav-button uppercase px-6 py-2 rounded-[2px] transition-colors duration-250 hover:bg-brass-dk hover:text-ink" onclick="window.location.href='contact.html'">
+                Inquire
+            </button>
+            <button class="md:hidden text-ink flex flex-col gap-1.5 p-2" id="mobile-menu-btn" aria-label="Open Mobile Menu">
+                <span class="w-6 h-0.5 bg-ink"></span>
+                <span class="w-6 h-0.5 bg-ink"></span>
+                <span class="w-6 h-0.5 bg-ink"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-ink/95 flex flex-col justify-center items-center gap-8 transition-opacity duration-300 ease-in-out opacity-0 hidden">
+        <button class="absolute top-6 right-6 text-surface-bright text-4xl" id="mobile-menu-close" aria-label="Close Mobile Menu">&times;</button>
+        <a class="font-headline-section text-3xl text-brass-lt border-b border-brass-lt" href="work.html">Portfolio</a>
+        <a class="font-headline-section text-3xl text-surface-bright hover:text-brass-lt transition-colors" href="index.html">Practice</a>
+        <a class="font-headline-section text-3xl text-surface-bright hover:text-brass-lt transition-colors" href="services.html">Services</a>
+        <a class="font-headline-section text-3xl text-surface-bright hover:text-brass-lt transition-colors" href="contact.html">Contact</a>
+        <button class="mt-8 bg-brass-lt text-ink font-nav-button text-nav-button uppercase px-8 py-3 rounded-sm hover:bg-surface-bright transition-colors" onclick="window.location.href='contact.html'">Inquire</button>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative bg-ink pt-40 pb-24 md:pt-64 md:pb-48 overflow-hidden">
+        <div class="absolute inset-0 blueprint-grid opacity-10" id="hero-grid"></div>
+        <div class="relative z-10 max-w-max-width mx-auto px-6 md:px-16">
+            <span class="font-ui-eyebrow text-ui-eyebrow text-brass-lt uppercase block mb-6 reveal">Selected Works</span>
+            <h1 class="font-headline-section text-headline-section-mobile md:text-display-hero text-surface-bright leading-tight reveal" style="transition-delay: 200ms;">
+                Architecture across<br/>every scale.
+            </h1>
+            <div class="mt-12 max-w-xl reveal" style="transition-delay: 400ms;">
+                <p class="text-slate-2 text-lg font-body-main">
+                    Exploring the intersection of material honesty and urban context. From residential sanctuaries to civic landmarks, our practice is dedicated to the craft of permanence.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sticky Filter Bar -->
+    <div class="sticky top-[64px] z-40 bg-surface/90 backdrop-blur-md border-b border-fog">
+        <div class="max-w-max-width mx-auto px-6 md:px-16 py-6 overflow-x-auto no-scrollbar">
+            <div class="flex items-center space-x-12 min-w-max">
+                <button data-filter="all" class="font-nav-button text-nav-button uppercase text-primary border-b-2 border-primary pb-1">All Projects</button>
+                <button data-filter="residential" class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-primary transition-colors pb-1">Residential</button>
+                <button data-filter="mixed-use" class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-primary transition-colors pb-1">Mixed-Use</button>
+                <button data-filter="commercial" class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-primary transition-colors pb-1">Commercial</button>
+                <button data-filter="hospitality" class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-primary transition-colors pb-1">Hospitality</button>
+                <button data-filter="research" class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-primary transition-colors pb-1">Research</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Portfolio Grid -->
+    <main class="max-w-max-width mx-auto px-6 md:px-16 py-24">
+        <div class="masonry-grid">
+            <!-- Project 01: 331 W Loop -->
+            <div data-category="commercial" data-cursor-label="View" class="col-span-12 md:col-span-8 reveal project-card rounded-[4px] border border-fog p-4 bg-surface-container-low" style="transition-delay: 100ms;">
+                <div class="project-image-container mb-6 rounded-[2px]">
+                    <img class="w-full h-full object-cover" alt="331 W Loop commercial high-rise" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc7KSIIqr3ZaJHT3nnuGG9Hd1IS-4eEfCWfPnhbI2s_KIERQFoiJl2VNjbw2LpqEh8Dvj_xpWWnikoa3_DYQfIpPGFtwidxMQRLR_HyvG2UyW354cGcw6OWbRH5PwBhxbeCiXi1PBH8u7vgWD-V_BwgYuCS3v1LBq-mX3mDebNu2Pnp62kx2_TP0XNAJ7nnvak3-EenjTT-PX754M5TRvRRPyvcIZg0lVvR-1a8kl8x4lTCNElg8yA"/>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-card-heading text-card-heading text-ink">331 W Loop</h3>
+                        <p class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase mt-1">Chicago, IL • Commercial</p>
+                    </div>
+                    <span class="font-headline-section text-3xl text-fog">01</span>
+                </div>
+            </div>
+
+            <!-- Project 02: 1220 Grand Crossing -->
+            <div data-category="residential" data-cursor-label="View" class="col-span-12 md:col-span-4 mt-0 md:mt-24 reveal project-card rounded-[4px] border border-fog p-4 bg-surface-container-low" style="transition-delay: 300ms;">
+                <div class="project-image-container mb-6 aspect-square rounded-[2px]">
+                    <img class="w-full h-full object-cover" alt="1220 Grand Crossing residential loft interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOx8zbEnKI22dgFEGilQY3xvJ4cfAuXQ8enkS1IppoXMsl1-93oWCyHB4BA2f_hmn56Hh5UxBcvfKfDlYS35_VmsUQhH4liHfxClYRutvPfIBcfZ4BzaYT7gcaf_AmEJXPpN98u1Fr_CYd1KeARl3AehudXkHE5MizkiPUVxHafGMdIPmLDKGmMV2qtyKN5_lW8_nuU7heZgq0fq7bxXZuE1wgli3HbumttxFJkRJx5OEG526fi_on"/>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-card-heading text-card-heading text-ink">1220 Grand Crossing</h3>
+                        <p class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase mt-1">Kansas City, MO • Residential</p>
+                    </div>
+                    <span class="font-headline-section text-3xl text-fog">02</span>
+                </div>
+            </div>
+
+            <!-- Project 03: 5416 W. Belmont -->
+            <div data-category="mixed-use" data-cursor-label="View" class="col-span-12 md:col-span-5 reveal project-card rounded-[4px] border border-fog p-4 bg-surface-container-low" style="transition-delay: 200ms;">
+                <div class="project-image-container mb-6 rounded-[2px]">
+                    <img class="w-full h-full object-cover" alt="5416 W. Belmont mixed-use terracotta facade" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvQiYa3IHzx2Hg7Iawq-2C0I5rreXi_8UnztQ4zn1BBm4rOOTrJomfTheQ6YMHUI06yszjKW3Dwq693rEGJ0qToLJL0DmYHMBlbTSG_NUxlSLFILtnTxXUAkLrrlI50I_vhD3icvu6tfeB1byxymSccKArfp2l3_miiBaYGJm8CXgVHE73PO2f9nIO_05qe7SNUIfJbWsprYjlcF47IjhU5mTmNhj_wTBDsIZzuthaiAobAYASUVMy"/>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-card-heading text-card-heading text-ink">5416 W. Belmont</h3>
+                        <p class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase mt-1">Chicago, IL • Mixed-Use</p>
+                    </div>
+                    <span class="font-headline-section text-3xl text-fog">03</span>
+                </div>
+            </div>
+
+            <!-- Project 04: The Foundry -->
+            <div data-category="hospitality" data-cursor-label="View" class="col-span-12 md:col-span-7 mt-0 md:-mt-12 reveal project-card rounded-[4px] border border-fog p-4 bg-surface-container-low" style="transition-delay: 400ms;">
+                <div class="project-image-container mb-6 aspect-[16/9] rounded-[2px]">
+                    <img class="w-full h-full object-cover" alt="The Foundry hospitality coastal concrete structure" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCACKpm3lmtzfl9Kd-VsdPqyN0CnHV1P_N6QrfGOAhlZaXXYK_t0_COVyhJv-SnWJg5OXjENSQrdHfaTRTXkkzzJmzJp3XaBxfB57JNIsR8RTDJ_SDjRIPxYHUoUeK8zFpmpBpChwZMG9_DispO_DjF68PetodWAYZ8HeWiEUD6ES1FKuEjs3-tayXOcbJ03zLsxWilmAR6mh-R96yZ68xp24SUf24qEMkauIdXWIuu96mqfNlpuqQU"/>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-card-heading text-card-heading text-ink">The Foundry</h3>
+                        <p class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase mt-1">Big Sur, CA • Hospitality</p>
+                    </div>
+                    <span class="font-headline-section text-3xl text-fog">04</span>
+                </div>
+            </div>
+
+            <!-- Project 05: Zenith Tower -->
+            <div data-category="commercial" data-cursor-label="View" class="col-span-12 md:col-span-4 reveal project-card rounded-[4px] border border-fog p-4 bg-surface-container-low" style="transition-delay: 500ms;">
+                <div class="project-image-container mb-6 aspect-[4/5] rounded-[2px]">
+                    <img class="w-full h-full object-cover" alt="Zenith Tower bronze exoskeleton high-rise" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAebrF6JDNP1Mv7S2eAYv2665hMyvJiQjK1gV-bObBIEiGu_gX6BwTwhwCmRW8XtnmhOiWSoQviSIuAEoHJFmB3U7Kva7tH8wO7GkVG9r-1KRDiq_N0cCEh_WY0OJ8Gl3QZqvM6q1BVp0ZLn4rvJw2MFNiN5CypmIV505Vv88opWJ6uTiNdUUGU1VrEBH-Pyl2srF7ZksdMoTXr4bnuuCyHGP-l8KsW1kjwCWC-B3oV5ZQFXLeud-cm"/>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-card-heading text-card-heading text-ink">Zenith Tower</h3>
+                        <p class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase mt-1">Austin, TX • Commercial</p>
+                    </div>
+                    <span class="font-headline-section text-3xl text-fog">05</span>
+                </div>
+            </div>
+
+            <!-- Project 06: Pavilion No. 9 -->
+            <div data-category="research" data-cursor-label="View" class="col-span-12 md:col-span-8 reveal project-card rounded-[4px] border border-fog p-4 bg-surface-container-low" style="transition-delay: 600ms;">
+                <div class="project-image-container mb-6 aspect-[3/2] rounded-[2px]">
+                    <img class="w-full h-full object-cover" alt="Pavilion No. 9 research structure in forest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcL03eySW4Cd7p6iUDgsCcoz7kA7oWlwWhgIywm7p-EQTGicBTkfRIpaYwJSuFz4R0ZVrSqX-c_-HoQFG0RrFEqV7C_99OvSpJuV6URe0GPjFt19Zfx_UxZpIJ8LisCoZRRhzceRScrvmrFisOEC59bIbPetFjrpWrWT8fDf-6bIm69uFJuwheYsZkXsRwqPshcq43UX9c6dMvtB1KwaRNfgnM_cAUir7e5DOVHJ9j4iTcDW7OQnPe"/>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-card-heading text-card-heading text-ink">Pavilion No. 9</h3>
+                        <p class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase mt-1">Asheville, NC • Research</p>
+                    </div>
+                    <span class="font-headline-section text-3xl text-fog">06</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer CTA -->
+    <section class="bg-brass-lt py-24 reveal">
+        <div class="max-w-max-width mx-auto px-6 md:px-16 flex flex-col md:flex-row justify-between items-center text-ink gap-12">
+            <h2 class="font-headline-section text-headline-section-mobile md:text-headline-section max-w-xl">
+                Have a project in mind? Let's build something that lasts.
+            </h2>
+            <a class="group flex items-center space-x-6 border-b-2 border-ink pb-2 transition-all" href="contact.html">
+                <span class="font-nav-button text-lg uppercase font-bold">Start a Conversation</span>
+                <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ink dark:bg-deep-dark w-full mt-0">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-component-gap px-6 md:px-16 py-section-gap-min max-w-max-width mx-auto">
+            <div class="col-span-1 md:col-span-2">
+                <div class="font-headline-section text-headline-section-mobile text-brass-lt mb-8">STUDIO ARCHITECT</div>
+                <p class="text-slate-2 max-w-sm mb-8 font-body-main text-caption">
+                    A multi-disciplinary architectural practice focused on technical authority, civic responsibility, and the craft of permanent building.
+                </p>
+            </div>
+            <div class="flex flex-col space-y-4">
+                <span class="text-brass-lt font-ui-eyebrow uppercase mb-2">Legal</span>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Privacy Policy</a>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Terms of Service</a>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Press Kit</a>
+            </div>
+            <div class="flex flex-col space-y-4">
+                <span class="text-brass-lt font-ui-eyebrow uppercase mb-2">Connect</span>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Instagram</a>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">LinkedIn</a>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Behance</a>
+            </div>
+        </div>
+        <div class="max-w-max-width mx-auto px-6 md:px-16 pb-12 border-t border-charcoal-2 pt-8">
+            <p class="text-slate-2 font-body-main text-caption">© 2026 Studio Architect. Built with Structural Honesty.</p>
+        </div>
+    </footer>
+
+    <!-- Shared JS -->
+    <script src="main.js"></script>
+
+    <!-- Project Filtering Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('[data-filter]');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button classes
+                    filterButtons.forEach(b => {
+                        b.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                        b.classList.add('text-on-surface-variant');
+                    });
+                    btn.classList.add('text-primary', 'border-b-2', 'border-primary');
+                    btn.classList.remove('text-on-surface-variant');
+
+                    const category = btn.getAttribute('data-filter');
+
+                    projectCards.forEach(card => {
+                        if (category === 'all' || card.getAttribute('data-category') === category) {
+                            card.style.display = 'block';
+                            // Stagger active display animation
+                            setTimeout(() => {
+                                card.classList.add('active');
+                            }, 50);
+                        } else {
+                            card.style.display = 'none';
+                            card.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

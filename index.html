@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Practice | STUDIO ARCHITECT</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f2f0ed",
+                    "secondary-fixed": "#ffdeae",
+                    "on-surface": "#1b1c1a",
+                    "surface-bright": "#fbf9f5",
+                    "tertiary-fixed": "#e8e2d9",
+                    "on-primary-fixed": "#1c1b19",
+                    "sand": "#F2EDE4",
+                    "fog": "#E8E4DC",
+                    "tertiary-container": "#1d1b16",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#868380",
+                    "on-secondary-fixed-variant": "#59431d",
+                    "on-surface-variant": "#494740",
+                    "brass-lt": "#D4B896",
+                    "secondary-fixed-dim": "#e3c291",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#1b1c1a",
+                    "primary-fixed-dim": "#cac6c2",
+                    "surface-container-high": "#eae8e4",
+                    "tertiary-fixed-dim": "#cbc6be",
+                    "on-primary-fixed-variant": "#484644",
+                    "error": "#ba1a1a",
+                    "primary-container": "#1c1b19",
+                    "primary": "#000000",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f5f3ef",
+                    "charcoal-2": "#2A2924",
+                    "on-secondary-fixed": "#281900",
+                    "secondary-container": "#fddba9",
+                    "tertiary": "#000000",
+                    "on-tertiary-container": "#87837c",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#e6e2de",
+                    "slate-2": "#6B6763",
+                    "on-secondary-container": "#785e36",
+                    "surface-dim": "#dbdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "ink": "#1C1B19",
+                    "surface-variant": "#e4e2de",
+                    "outline": "#7a776f",
+                    "surface-container-highest": "#e4e2de",
+                    "deep-dark": "#141412",
+                    "secondary": "#735a33",
+                    "surface": "#fbf9f5",
+                    "brass-dk": "#7A5F38",
+                    "background": "#fbf9f5",
+                    "surface-tint": "#605e5b",
+                    "outline-variant": "#cbc6bd",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#494640",
+                    "inverse-surface": "#30312e",
+                    "on-tertiary-fixed": "#1d1b16",
+                    "inverse-primary": "#cac6c2",
+                    "surface-container": "#efeeea"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter-min": "1.5rem",
+                    "component-gap": "1.5rem",
+                    "section-gap-max": "9rem",
+                    "base-unit": "4px",
+                    "gutter-max": "4rem",
+                    "section-gap-min": "5rem",
+                    "max-width": "1280px"
+            },
+            "fontFamily": {
+                    "body-main": ["DM Sans"],
+                    "headline-section": ["EB Garamond"],
+                    "ui-eyebrow": ["DM Sans"],
+                    "nav-button": ["DM Sans"],
+                    "display-hero": ["EB Garamond"],
+                    "headline-section-mobile": ["EB Garamond"],
+                    "card-heading": ["EB Garamond"],
+                    "caption": ["DM Sans"],
+                    "display-hero-mobile": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "body-main": ["15px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                    "headline-section": ["44px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "ui-eyebrow": ["11px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "nav-button": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.08em", "fontWeight": "500"}],
+                    "display-hero": ["96px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                    "headline-section-mobile": ["28px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "card-heading": ["22px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "caption": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-hero-mobile": ["52px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-main selection:bg-brass-lt selection:text-charcoal-2 overflow-x-hidden">
+    <!-- Custom trailing cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <div class="cursor-label" id="cursor-label"></div>
+
+    <!-- TopNavBar -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 ease-in-out">
+        <div class="flex justify-between items-center px-6 md:px-16 py-4 w-full max-w-max-width mx-auto">
+            <a class="font-headline-section text-2xl tracking-tighter text-ink" href="index.html">
+                STUDIO ARCHITECT
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-secondary transition-colors duration-250" href="work.html">Portfolio</a>
+                <a class="font-nav-button text-nav-button uppercase text-secondary border-b border-secondary" href="index.html">Practice</a>
+                <a class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-secondary transition-colors duration-250" href="services.html">Services</a>
+                <a class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-secondary transition-colors duration-250" href="contact.html">Contact</a>
+            </nav>
+            <button class="hidden md:block bg-primary text-on-primary font-nav-button text-nav-button uppercase px-6 py-2 rounded-[2px] transition-colors duration-250 hover:bg-brass-dk hover:text-ink" onclick="window.location.href='contact.html'">
+                Inquire
+            </button>
+            <button class="md:hidden text-ink flex flex-col gap-1.5 p-2" id="mobile-menu-btn" aria-label="Open Mobile Menu">
+                <span class="w-6 h-0.5 bg-ink"></span>
+                <span class="w-6 h-0.5 bg-ink"></span>
+                <span class="w-6 h-0.5 bg-ink"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-ink/95 flex flex-col justify-center items-center gap-8 transition-opacity duration-300 ease-in-out opacity-0 hidden">
+        <button class="absolute top-6 right-6 text-surface-bright text-4xl" id="mobile-menu-close" aria-label="Close Mobile Menu">&times;</button>
+        <a class="font-headline-section text-3xl text-surface-bright hover:text-brass-lt transition-colors" href="work.html">Portfolio</a>
+        <a class="font-headline-section text-3xl text-brass-lt border-b border-brass-lt" href="index.html">Practice</a>
+        <a class="font-headline-section text-3xl text-surface-bright hover:text-brass-lt transition-colors" href="services.html">Services</a>
+        <a class="font-headline-section text-3xl text-surface-bright hover:text-brass-lt transition-colors" href="contact.html">Contact</a>
+        <button class="mt-8 bg-brass-lt text-ink font-nav-button text-nav-button uppercase px-8 py-3 rounded-sm hover:bg-surface-bright transition-colors" onclick="window.location.href='contact.html'">Inquire</button>
+    </div>
+
+    <main class="pt-16">
+        <!-- Hero Split Layout -->
+        <section class="grid grid-cols-1 md:grid-cols-2 h-[819px] md:h-[921px] overflow-hidden">
+            <div class="bg-charcoal-2 relative flex flex-col justify-center px-6 md:px-16 blueprint-grid overflow-hidden">
+                <div class="absolute top-10 left-10 opacity-20 flex gap-4 items-center">
+                    <span class="text-[10px] font-mono text-brass-lt uppercase tracking-widest">DRWG_REF: 001-A</span>
+                    <div class="h-px w-20 bg-brass-lt"></div>
+                </div>
+                <h1 class="reveal font-display-hero-mobile md:font-display-hero text-display-hero-mobile md:text-display-hero text-surface-bright leading-none max-w-xl">
+                    Architecture as a community act.
+                </h1>
+                <div class="mt-8 flex items-center gap-4 reveal" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 rounded-full border border-brass-lt/30 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-brass-lt" style="font-variation-settings: 'FILL' 1;">arrow_downward</span>
+                    </div>
+                    <span class="font-ui-eyebrow text-ui-eyebrow text-brass-lt uppercase">Scroll to Explore Our Philosophy</span>
+                </div>
+            </div>
+            <div class="relative overflow-hidden group">
+                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="A striking architectural photograph of a modern, multi-use community building in an urban setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC27StU7AgQ6gNQ2WN5-luTXItpomIs58CexGIfbybTO231rcVxZSqwlA3w5AO96YZj4dHEV6WSq1EBaxJkVLzbmzsdPieXD8Zj0OalHcZ1Zdw7ykdvQSerR2qKTEbGUzZSrgydwuoG493qG_dCQaBmU_pL3dQiE9eXKG17xd4McFe8pU1WNFvR-c069vTqHcCFVdaVp6uT-bC0TpvJXl0pdhGuFNlJSjPikg8nU0St_dJSU-gNkS7F"/>
+            </div>
+        </section>
+
+        <!-- Mission Statement -->
+        <section class="max-w-max-width mx-auto px-6 md:px-16 py-section-gap-max">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-component-gap items-center">
+                <div class="reveal">
+                    <span class="font-ui-eyebrow text-ui-eyebrow text-secondary uppercase block mb-6">Our Mission</span>
+                    <h2 class="font-headline-section text-headline-section italic text-ink leading-tight">
+                        "We design buildings that become part of the fabric of their neighborhood."
+                    </h2>
+                </div>
+                <div class="reveal space-y-6" style="transition-delay: 200ms;">
+                    <p class="font-body-main text-body-main text-slate-2">
+                        At Studio Architect, we believe that buildings are not static objects but living participants in their environments. Our practice is rooted in the concept of structural honesty—where every line, material, and void serves a deliberate civic purpose.
+                    </p>
+                    <p class="font-body-main text-body-main text-slate-2">
+                        We don't just build structures; we curate experiences that honor local history while paving the way for a more sustainable, interconnected future. Every project is a technical drafting of community needs.
+                    </p>
+                    <a class="inline-flex items-center gap-4 font-nav-button text-nav-button uppercase text-ink border-b border-ink pb-1 hover:text-secondary hover:border-secondary transition-colors" href="work.html">
+                        Read the full manifesto
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Strip -->
+        <section class="bg-fog/30 border-y border-fog" id="statsStrip">
+            <div class="max-w-max-width mx-auto px-6 md:px-16 py-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x-0 md:divide-x divide-fog stagger-container">
+                    <div class="text-center md:px-8 reveal">
+                        <span class="block font-headline-section text-headline-section text-ink">250+</span>
+                        <span class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase">Projects</span>
+                    </div>
+                    <div class="text-center md:px-8 reveal">
+                        <span class="block font-headline-section text-headline-section text-ink">12</span>
+                        <span class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase">States</span>
+                    </div>
+                    <div class="text-center md:px-8 reveal">
+                        <span class="block font-headline-section text-headline-section text-ink">5</span>
+                        <span class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase">Years</span>
+                    </div>
+                    <div class="text-center md:px-8 reveal">
+                        <span class="block font-headline-section text-headline-section text-ink">100%</span>
+                        <span class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase">Women-Owned</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="max-w-max-width mx-auto px-6 md:px-16 py-section-gap-max">
+            <div class="mb-16 reveal">
+                <span class="font-ui-eyebrow text-ui-eyebrow text-secondary uppercase block mb-4">The Collective</span>
+                <h3 class="font-headline-section text-headline-section text-ink">Expertly Composed.</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-component-gap stagger-container">
+                <!-- Team Card 1 -->
+                <div class="group reveal">
+                    <div class="aspect-[3/4] overflow-hidden bg-fog mb-6 border border-fog rounded-[4px]">
+                        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Elena Vance, Principal Architect" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5-FOm3F8k3eU2bFCy2qw89hO1MmmZk5o18IFs3Sn6xU12zk1TpcIAGpjszTJJODNPn-Wj2JuWWr_q1-_hPgC3hlWqNndGRZHJdh6zXQ9LOutA0LGPZT4-2OXpKDzpSf0GTRTUbQ_O9dXO0IEK1d02dHPbijcKVkxw_M0hw2BvmpJ71fYkevnZ_QJ4SoUthbQm2NzJR788PmJ8hk04CWqzlbVgKSUEwhfJkFx3ROcOKKwVcw63KTnd"/>
+                    </div>
+                    <h4 class="font-headline-section text-card-heading italic text-ink">Elena Vance</h4>
+                    <p class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase mt-1">Principal Architect</p>
+                </div>
+                <!-- Team Card 2 -->
+                <div class="group reveal">
+                    <div class="aspect-[3/4] overflow-hidden bg-fog mb-6 border border-fog rounded-[4px]">
+                        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Siobhan Roy, Lead Designer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKbHSdj6X6-c9Oj6k_5UYKvcGRpt613bcJ1d2nxFJUPb2V_XIb5ub5USHLvOwFv7G2DU57v915PBl7UiiudwmS8I4pEqFd7T-8Z07wl_fQ7_uHekLbI0LltJn07tkydR2VDlVyis7mONkGWWwjreeMeec253qJN6lFo24F8yfE0BG4L-z0JTXPwyu3KN47mrC2QdjiZXK7tUoIqQJnnG5cjpsoqI1sLZgqSI2597G08hTCQf2Gfal4"/>
+                    </div>
+                    <h4 class="font-headline-section text-card-heading italic text-ink">Siobhan Roy</h4>
+                    <p class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase mt-1">Lead Designer</p>
+                </div>
+                <!-- Team Card 3 -->
+                <div class="group reveal">
+                    <div class="aspect-[3/4] overflow-hidden bg-fog mb-6 border border-fog rounded-[4px]">
+                        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Maya Ishii, Structural Director" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu3xMFtFInq3gEo8BHc7RxeWKaicNzeYycJ_Ec_6l0ffQh2OtjoS6BTCLtSxgIPH-1-_TU4wf_nyzCmFpqKCHOJ5oTRFWMQpbA1zzYA8FtB1zrXIlMS9Nqmp-e-joMoKCSSoQdD-LkICijqatE6Az6bTBNmf16ZQiGfyv-kZWREtPeqpGRMUIP0-rJyldj35SIdhyAFdRTA5nejAW_y0dcy28_Tc_GjBXhR6LLrV183bQgZNsWkw9q"/>
+                    </div>
+                    <h4 class="font-headline-section text-card-heading italic text-ink">Maya Ishii</h4>
+                    <p class="font-ui-eyebrow text-ui-eyebrow text-slate-2 uppercase mt-1">Structural Director</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Women-Owned Feature -->
+        <section class="bg-ink py-section-gap-max relative overflow-hidden">
+            <div class="absolute inset-0 blueprint-grid opacity-10 pointer-events-none"></div>
+            <div class="max-w-max-width mx-auto px-6 md:px-16 relative z-10">
+                <div class="flex flex-col md:flex-row items-center gap-16">
+                    <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 border-2 border-brass-lt rounded-full flex items-center justify-center p-8 text-center reveal">
+                        <div class="flex flex-col items-center">
+                            <span class="material-symbols-outlined text-brass-lt text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            <span class="font-ui-eyebrow text-ui-eyebrow text-brass-lt uppercase leading-tight">Certified<br/>Women-Owned<br/>Business</span>
+                        </div>
+                    </div>
+                    <div class="reveal" style="transition-delay: 200ms;">
+                        <h2 class="font-headline-section text-headline-section text-surface-bright mb-6">Leading through precision and empathy.</h2>
+                        <p class="font-body-main text-body-main text-tertiary-fixed max-w-2xl">
+                            As a 100% women-owned firm, we bring a unique perspective to the built environment. We prioritize collaborative workflows and technical excellence, ensuring that our leadership reflects the diverse communities we serve. Our certification is more than a badge—it's a commitment to professional craft and civic responsibility.
+                        </p>
+                        <div class="mt-8">
+                            <button class="bg-brass-lt text-ink font-nav-button text-nav-button uppercase px-8 py-3 rounded-sm hover:bg-surface-bright transition-all" onclick="window.location.href='contact.html'">
+                                Inquire & Consult
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-ink dark:bg-deep-dark w-full mt-section-gap-max border-t border-charcoal-2">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-component-gap px-6 md:px-16 py-section-gap-min max-w-max-width mx-auto">
+            <div class="col-span-1 md:col-span-2">
+                <a class="font-headline-section text-headline-section-mobile text-brass-lt mb-4 block" href="index.html">STUDIO ARCHITECT</a>
+                <p class="font-body-main text-caption text-slate-2 max-w-sm">
+                    Architectural practice focused on technical authority, civic responsibility, and the craft of building in the modern urban landscape.
+                </p>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h5 class="font-ui-eyebrow text-ui-eyebrow text-tertiary-fixed uppercase">Navigation</h5>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="work.html">Portfolio</a>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="index.html">Practice</a>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="services.html">Services</a>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="contact.html">Contact</a>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h5 class="font-ui-eyebrow text-ui-eyebrow text-tertiary-fixed uppercase">Legal & Press</h5>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Privacy Policy</a>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Terms of Service</a>
+                <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Press Kit</a>
+            </div>
+        </div>
+        <div class="max-w-max-width mx-auto px-6 md:px-16 py-8 border-t border-charcoal-2/50 flex flex-col md:flex-row justify-between items-center gap-4">
+            <span class="font-body-main text-caption text-slate-2">
+                © 2026 Studio Architect. Built with Structural Honesty.
+            </span>
+            <div class="flex gap-6">
+                <a class="text-slate-2 hover:text-brass-lt transition-colors" href="#" aria-label="Globe link"><span class="material-symbols-outlined text-[20px]">public</span></a>
+                <a class="text-slate-2 hover:text-brass-lt transition-colors" href="#" aria-label="Architecture link"><span class="material-symbols-outlined text-[20px]">architecture</span></a>
+                <a class="text-slate-2 hover:text-brass-lt transition-colors" href="mailto:info@studioarchitect.com" aria-label="Mail link"><span class="material-symbols-outlined text-[20px]">mail</span></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shared logic -->
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+/* ─── TOKENS & RESET ─── */
+:root {
+  --charcoal:   #1C1B19;
+  --charcoal-2: #2A2924;
+  --slate:      #4A4741;
+  --slate-2:    #6B6763;
+  --brass:      #B5976A;
+  --brass-lt:   #D4B896;
+  --brass-dk:   #7A5F38;
+  --sand:       #F2EDE4;
+  --fog:        #E8E4DC;
+  --warm-white: #FAF8F4;
+  --pure-white: #FFFFFF;
+  --ink:        #1C1B19;
+
+  --serif: 'EB Garamond', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+}
+
+/* Custom Cursor styling as per DESIGN.md */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--brass);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease-out, width 0.2s ease, height 0.2s ease;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--brass);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out, width 0.25s ease, height 0.25s ease, opacity 0.25s, background-color 0.25s;
+  opacity: 0.6;
+}
+
+.cursor-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  font-family: var(--sans);
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Hovering interactive items (buttons, project cards, links) */
+body.hover-project .cursor-dot {
+  width: 0;
+  height: 0;
+}
+
+body.hover-project .cursor-ring {
+  width: 64px;
+  height: 64px;
+  opacity: 1;
+  background-color: var(--brass-lt);
+  border-color: var(--brass-lt);
+}
+
+body.hover-project .cursor-label {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .cursor-dot, .cursor-ring, .cursor-label {
+    display: none !important;
+  }
+}
+
+/* Blueprint Grid Background Pattern */
+.blueprint-grid {
+  background-image: 
+    linear-gradient(to right, rgba(212, 184, 150, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 184, 150, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Scroll Reveal animation system */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

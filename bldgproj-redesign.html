@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLDG Projects — Architecture + Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ─── TOKENS ─────────────────────────────────────────── */
+:root {
+  --charcoal:   #1C1B19;
+  --charcoal-2: #2A2924;
+  --slate:      #4A4741;
+  --slate-2:    #6B6763;
+  --brass:      #B5976A;
+  --brass-lt:   #D4B896;
+  --brass-dk:   #7A5F38;
+  --sand:       #F2EDE4;
+  --fog:        #E8E4DC;
+  --warm-white: #FAF8F4;
+  --pure-white: #FFFFFF;
+  --ink:        #1C1B19;
+
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+
+  --max: 1280px;
+  --gutter: clamp(1.5rem, 5vw, 4rem);
+  --section-gap: clamp(5rem, 10vw, 9rem);
+}
+
+/* ─── RESET ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--warm-white);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; cursor: pointer; font-family: var(--sans); }
+
+/* ─── CUSTOM CURSOR ──────────────────────────────────── */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--brass);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.25s ease, height 0.25s ease, background 0.25s;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--brass);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, opacity 0.25s;
+  opacity: 0.5;
+}
+.cursor-label {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  font-family: var(--sans);
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+body.hover-project .cursor-dot { width: 0; height: 0; }
+body.hover-project .cursor-ring { width: 64px; height: 64px; opacity: 0.8; }
+body.hover-project .cursor-label { opacity: 1; }
+@media (hover: none) { .cursor-dot, .cursor-ring, .cursor-label { display: none; } }
+
+/* ─── NAVIGATION ─────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 var(--gutter);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom-color 0.4s;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  background: rgba(28,27,25,0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: rgba(181,151,106,0.15);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: .06em;
+  color: var(--warm-white);
+  text-transform: uppercase;
+}
+.nav-logo span {
+  color: var(--brass);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.7);
+  font-weight: 400;
+  position: relative;
+  transition: color 0.2s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0; right: 100%;
+  height: 1px;
+  background: var(--brass);
+  transition: right 0.3s ease;
+}
+.nav-links a:hover { color: var(--warm-white); }
+.nav-links a:hover::after { right: 0; }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.nav-phone {
+  font-size: 11px;
+  color: rgba(250,248,244,0.5);
+  letter-spacing: .04em;
+}
+.nav-cta {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 9px 20px;
+  border: 1px solid var(--brass);
+  color: var(--brass);
+  border-radius: 2px;
+  transition: background 0.25s, color 0.25s;
+}
+.nav-cta:hover { background: var(--brass); color: var(--charcoal); }
+.nav-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+}
+.nav-menu-btn span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--warm-white);
+  transition: transform 0.3s;
+}
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--charcoal);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--warm-white);
+  letter-spacing: .02em;
+  transition: color 0.2s;
+}
+.mobile-nav a:hover { color: var(--brass); }
+.mobile-close {
+  position: absolute;
+  top: 24px; right: 24px;
+  font-size: 28px;
+  color: var(--warm-white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+@media (max-width: 900px) {
+  .nav-links, .nav-phone { display: none; }
+  .nav-menu-btn { display: flex; }
+}
+
+/* ─── HERO ───────────────────────────────────────────── */
+.hero {
+  min-height: 100svh;
+  background: var(--charcoal);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+/* Blueprint SVG grid — the signature element */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 1.2s ease 0.3s;
+}
+.hero-grid.loaded { opacity: 1; }
+
+.hero-left {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: calc(72px + 3rem) var(--gutter) clamp(3rem,7vw,5rem) var(--gutter);
+}
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease 0.8s, transform 0.6s ease 0.8s;
+}
+.hero-eyebrow.visible { opacity: 1; transform: none; }
+.hero-headline {
+  font-family: var(--serif);
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--warm-white);
+  margin-bottom: 2.5rem;
+}
+.hero-headline .word {
+  display: inline-block;
+  overflow: hidden;
+}
+.hero-headline .word-inner {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.hero-headline .word-inner.visible {
+  opacity: 1;
+  transform: none;
+}
+.hero-headline em {
+  font-style: italic;
+  color: var(--brass-lt);
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease 1.4s, transform 0.6s ease 1.4s;
+}
+.hero-meta.visible { opacity: 1; transform: none; }
+.hero-meta-text {
+  font-size: 13px;
+  color: rgba(250,248,244,0.55);
+  line-height: 1.6;
+  max-width: 340px;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease 1.6s, transform 0.6s ease 1.6s;
+}
+.hero-actions.visible { opacity: 1; transform: none; }
+.btn-primary {
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 14px 28px;
+  background: var(--brass);
+  color: var(--charcoal);
+  border-radius: 2px;
+  transition: background 0.25s, transform 0.2s;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--brass-lt); transform: translateY(-1px); }
+.btn-ghost {
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: rgba(250,248,244,0.6);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+.btn-ghost:hover { color: var(--warm-white); }
+.btn-ghost svg { transition: transform 0.2s; }
+.btn-ghost:hover svg { transform: translateX(4px); }
+
+.hero-right {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  overflow: hidden;
+}
+.hero-img-stack {
+  display: grid;
+  grid-template-rows: 55% 45%;
+  gap: 3px;
+  height: 100%;
+}
+.hero-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--charcoal-2);
+}
+.hero-img-inner {
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.04);
+  transition: transform 8s ease;
+}
+.hero-img:hover .hero-img-inner { transform: scale(1.0); }
+.hero-img-label {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.6);
+  background: rgba(28,27,25,0.6);
+  padding: 4px 10px;
+  border-radius: 2px;
+  backdrop-filter: blur(4px);
+}
+.hero-img.reveal {
+  clip-path: inset(100% 0 0 0);
+  animation: revealImg 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes revealImg {
+  to { clip-path: inset(0% 0 0 0); }
+}
+
+/* Gradient overlay on hero-left for legibility */
+.hero-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(28,27,25,0.6) 0%, transparent 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; grid-template-rows: auto; min-height: 100svh; }
+  .hero-right { display: none; }
+  .hero-left { justify-content: flex-end; min-height: 100svh; }
+  .hero-headline { font-size: clamp(44px, 11vw, 64px); }
+}
+
+/* ─── STATS STRIP ────────────────────────────────────── */
+.stats-strip {
+  background: var(--charcoal-2);
+  border-top: 1px solid rgba(181,151,106,0.2);
+  border-bottom: 1px solid rgba(181,151,106,0.2);
+  padding: 2.25rem var(--gutter);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  padding: 0 1.5rem;
+  border-right: 1px solid rgba(181,151,106,0.15);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.stat-item:first-child { padding-left: 0; }
+.stat-item:last-child { border-right: none; }
+.stat-item.visible { opacity: 1; transform: none; }
+.stat-num {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--warm-white);
+  line-height: 1;
+}
+.stat-num .brass { color: var(--brass); }
+.stat-label {
+  font-size: 11px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.45);
+}
+@media (max-width: 600px) {
+  .stats-strip { flex-wrap: wrap; }
+  .stat-item { min-width: 40%; border-right: none; padding: .75rem 0; border-bottom: 1px solid rgba(181,151,106,0.12); }
+  .stat-item:last-child { border-bottom: none; }
+}
+
+/* ─── SERVICES ───────────────────────────────────────── */
+.services-section {
+  padding: var(--section-gap) var(--gutter);
+  background: var(--warm-white);
+}
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+.section-eyebrow {
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  font-weight: 400;
+  margin-bottom: .75rem;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.section-link {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--slate-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+.section-link:hover { color: var(--brass); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--fog);
+  border: 1px solid var(--fog);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.service-card {
+  background: var(--warm-white);
+  padding: 2rem 1.75rem 2rem;
+  position: relative;
+  cursor: default;
+  transition: background 0.3s;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--brass);
+  transition: width 0.4s ease;
+}
+.service-card:hover { background: var(--sand); }
+.service-card:hover::before { width: 100%; }
+.service-icon {
+  width: 36px; height: 36px;
+  margin-bottom: 1.25rem;
+  color: var(--brass);
+  opacity: 0.9;
+}
+.service-name {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: .5rem;
+  line-height: 1.2;
+}
+.service-desc {
+  font-size: 13px;
+  color: var(--slate-2);
+  line-height: 1.6;
+}
+.service-arrow {
+  position: absolute;
+  bottom: 1.75rem; right: 1.75rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s, transform 0.3s;
+  color: var(--brass);
+}
+.service-card:hover .service-arrow { opacity: 1; transform: none; }
+@media (max-width: 768px) {
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .section-header { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 480px) {
+  .services-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── PORTFOLIO ──────────────────────────────────────── */
+.portfolio-section {
+  padding: 0 var(--gutter) var(--section-gap);
+  background: var(--warm-white);
+}
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--fog);
+  padding-bottom: 1.25rem;
+}
+.filter-btn {
+  font-size: 11px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  color: var(--slate-2);
+  transition: all 0.2s;
+  font-family: var(--sans);
+}
+.filter-btn:hover { color: var(--ink); border-color: var(--fog); }
+.filter-btn.active { color: var(--charcoal); border-color: var(--brass); background: rgba(181,151,106,0.06); }
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+.proj-card {
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+  border-radius: 3px;
+  background: var(--fog);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.proj-card.visible { opacity: 1; transform: none; }
+.proj-card.wide { grid-column: span 7; }
+.proj-card.narrow { grid-column: span 5; }
+.proj-card.full { grid-column: span 12; }
+.proj-card.third { grid-column: span 4; }
+.proj-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.03);
+  transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.proj-card.wide .proj-img { aspect-ratio: 16/10; }
+.proj-card.full .proj-img { aspect-ratio: 21/9; }
+.proj-card:hover .proj-img { transform: scale(1.0); }
+.proj-info {
+  padding: 1.25rem 1.25rem 1.5rem;
+  background: var(--warm-white);
+}
+.proj-tag {
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: .4rem;
+}
+.proj-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: .25rem;
+  line-height: 1.2;
+}
+.proj-meta {
+  font-size: 12px;
+  color: var(--slate-2);
+}
+.proj-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28,27,25,0);
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.proj-card:hover .proj-overlay { background: rgba(28,27,25,0.04); }
+@media (max-width: 900px) {
+  .proj-card.wide, .proj-card.narrow, .proj-card.full, .proj-card.third {
+    grid-column: span 12;
+  }
+  .proj-card.wide .proj-img { aspect-ratio: 16/9; }
+}
+
+/* ─── CREDENTIALS ────────────────────────────────────── */
+.credentials-section {
+  background: var(--charcoal);
+  padding: var(--section-gap) var(--gutter);
+}
+.cred-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.cred-left .section-title { color: var(--warm-white); }
+.cred-left .section-eyebrow { color: var(--brass); }
+.cred-body {
+  font-size: 15px;
+  color: rgba(250,248,244,0.6);
+  line-height: 1.7;
+  margin: 1.25rem 0 2rem;
+}
+.womens-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border: 1px solid rgba(181,151,106,0.4);
+  border-radius: 2px;
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+.womens-badge svg { flex-shrink: 0; }
+.cred-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(181,151,106,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.cred-stat {
+  background: rgba(255,255,255,0.03);
+  padding: 1.75rem;
+  border-radius: 0;
+}
+.cred-stat-num {
+  font-family: var(--serif);
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--warm-white);
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.cred-stat-num em { color: var(--brass); font-style: normal; }
+.cred-stat-label {
+  font-size: 12px;
+  color: rgba(250,248,244,0.45);
+  letter-spacing: .05em;
+}
+.states-list {
+  grid-column: span 2;
+  background: rgba(255,255,255,0.03);
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.state-pill {
+  font-size: 11px;
+  letter-spacing: .06em;
+  padding: 5px 12px;
+  border: 1px solid rgba(181,151,106,0.25);
+  border-radius: 2px;
+  color: rgba(250,248,244,0.5);
+  transition: border-color 0.2s, color 0.2s;
+}
+.state-pill:hover { border-color: var(--brass); color: var(--brass); }
+@media (max-width: 768px) {
+  .cred-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* ─── TESTIMONIALS ───────────────────────────────────── */
+.testimonials-section {
+  padding: var(--section-gap) var(--gutter);
+  background: var(--sand);
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.testimonial-card {
+  background: var(--warm-white);
+  border-radius: 3px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.testimonial-card.visible { opacity: 1; transform: none; }
+.testimonial-quote-mark {
+  font-family: var(--serif);
+  font-size: 56px;
+  color: var(--brass);
+  line-height: .7;
+  font-weight: 300;
+}
+.testimonial-text {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.6;
+  font-style: italic;
+  flex: 1;
+}
+.testimonial-author {
+  border-top: 1px solid var(--fog);
+  padding-top: 1rem;
+}
+.testimonial-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.testimonial-role {
+  font-size: 11px;
+  color: var(--slate-2);
+  letter-spacing: .04em;
+  margin-top: 2px;
+}
+@media (max-width: 768px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── PROCESS ────────────────────────────────────────── */
+.process-section {
+  padding: var(--section-gap) var(--gutter);
+  background: var(--warm-white);
+  border-top: 1px solid var(--fog);
+}
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 3.5rem;
+  position: relative;
+}
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: var(--fog);
+  z-index: 0;
+}
+.process-step {
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.process-step.visible { opacity: 1; transform: none; }
+.process-dot {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--fog);
+  background: var(--warm-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--brass);
+}
+.process-step-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: .5rem;
+}
+.process-step-desc {
+  font-size: 13px;
+  color: var(--slate-2);
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .process-steps::before { display: none; }
+}
+
+/* ─── CONTACT ────────────────────────────────────────── */
+.contact-section {
+  padding: var(--section-gap) var(--gutter);
+  background: var(--charcoal);
+  position: relative;
+  overflow: hidden;
+}
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(181,151,106,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.contact-left .section-title { color: var(--warm-white); }
+.contact-left .section-eyebrow { color: var(--brass); }
+.contact-intro {
+  font-size: 15px;
+  color: rgba(250,248,244,0.55);
+  line-height: 1.7;
+  margin: 1.25rem 0 2.5rem;
+}
+.contact-offices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.office-label {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: .5rem;
+}
+.office-addr {
+  font-size: 13px;
+  color: rgba(250,248,244,0.5);
+  line-height: 1.6;
+}
+.office-hours {
+  font-size: 12px;
+  color: rgba(250,248,244,0.35);
+  margin-top: .5rem;
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-field label {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.45);
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(181,151,106,0.2);
+  border-radius: 2px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--warm-white);
+  font-family: var(--sans);
+  transition: border-color 0.2s;
+  width: 100%;
+  outline: none;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: rgba(250,248,244,0.25); }
+.form-field select option { background: var(--charcoal-2); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: rgba(181,151,106,0.6);
+}
+.form-field textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 15px 32px;
+  background: var(--brass);
+  color: var(--charcoal);
+  border-radius: 2px;
+  width: fit-content;
+  font-family: var(--sans);
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.form-submit:hover { background: var(--brass-lt); transform: translateY(-1px); }
+.form-promise {
+  font-size: 11px;
+  color: rgba(250,248,244,0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (max-width: 900px) {
+  .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+.footer {
+  background: #141412;
+  border-top: 1px solid rgba(181,151,106,0.12);
+  padding: 4rem var(--gutter) 2.5rem;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+.footer-brand {}
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: .06em;
+  color: var(--warm-white);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.footer-logo span { color: var(--brass); }
+.footer-tagline {
+  font-size: 13px;
+  color: rgba(250,248,244,0.35);
+  line-height: 1.6;
+  max-width: 240px;
+  margin-bottom: 1.5rem;
+}
+.footer-social {
+  display: flex;
+  gap: 1rem;
+}
+.footer-social a {
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.3);
+  transition: color 0.2s;
+}
+.footer-social a:hover { color: var(--brass); }
+.footer-col-title {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 1rem;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.footer-links li a {
+  font-size: 13px;
+  color: rgba(250,248,244,0.45);
+  transition: color 0.2s;
+}
+.footer-links li a:hover { color: var(--warm-white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-copy {
+  font-size: 11px;
+  color: rgba(250,248,244,0.25);
+  letter-spacing: .04em;
+}
+.footer-license {
+  font-size: 11px;
+  color: rgba(250,248,244,0.2);
+}
+@media (max-width: 768px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: span 2; }
+}
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-brand { grid-column: span 1; }
+}
+
+/* ─── SCROLL REVEAL UTILITY ──────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ─── REDUCED MOTION ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-label" id="cursorLabel">View</div>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav" id="mainNav">
+  <a href="#" class="nav-logo">BLDG<span>&nbsp;Projects</span></a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#blog">Journal</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-phone">773-784-9755</span>
+    <a href="#contact" class="nav-cta">Start a project</a>
+    <button class="nav-menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="closeNav">&#10005;</button>
+  <a href="#work" onclick="closeMobileNav()">Work</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#contact" onclick="closeMobileNav()">Start a project</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <!-- Blueprint grid signature element -->
+  <svg class="hero-grid" id="heroGrid" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <pattern id="smallGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(181,151,106,0.07)" stroke-width="0.5"/>
+      </pattern>
+      <pattern id="bigGrid" width="200" height="200" patternUnits="userSpaceOnUse">
+        <rect width="200" height="200" fill="url(#smallGrid)"/>
+        <path d="M 200 0 L 0 0 0 200" fill="none" stroke="rgba(181,151,106,0.12)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#bigGrid)"/>
+    <!-- Structural annotation lines -->
+    <line x1="200" y1="0" x2="200" y2="900" stroke="rgba(181,151,106,0.08)" stroke-width="0.5" stroke-dasharray="4 8"/>
+    <line x1="0" y1="220" x2="700" y2="220" stroke="rgba(181,151,106,0.08)" stroke-width="0.5" stroke-dasharray="4 8"/>
+    <line x1="0" y1="600" x2="700" y2="600" stroke="rgba(181,151,106,0.05)" stroke-width="0.5" stroke-dasharray="4 8"/>
+    <!-- Dimension arrows -->
+    <text x="60" y="210" fill="rgba(181,151,106,0.2)" font-size="8" font-family="DM Sans, sans-serif" letter-spacing="1">14,500 SF</text>
+    <line x1="60" y1="215" x2="140" y2="215" stroke="rgba(181,151,106,0.15)" stroke-width="0.5" marker-end="url(#dim-arrow)"/>
+    <text x="60" y="600" fill="rgba(181,151,106,0.15)" font-size="8" font-family="DM Sans, sans-serif" letter-spacing="1">LEVEL 01</text>
+    <!-- Corner marks -->
+    <path d="M 60 60 L 60 80 M 60 60 L 80 60" stroke="rgba(181,151,106,0.2)" stroke-width="1" fill="none"/>
+    <path d="M 620 60 L 620 80 M 620 60 L 600 60" stroke="rgba(181,151,106,0.2)" stroke-width="1" fill="none"/>
+    <circle cx="340" cy="440" r="120" fill="none" stroke="rgba(181,151,106,0.05)" stroke-width="1" stroke-dasharray="6 10"/>
+    <circle cx="340" cy="440" r="60" fill="none" stroke="rgba(181,151,106,0.07)" stroke-width="0.5"/>
+    <line x1="220" y1="440" x2="460" y2="440" stroke="rgba(181,151,106,0.05)" stroke-width="0.5"/>
+    <line x1="340" y1="320" x2="340" y2="560" stroke="rgba(181,151,106,0.05)" stroke-width="0.5"/>
+  </svg>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow" id="heroEyebrow">Chicago &amp; Miami · Architecture + Design · Est. 2020</div>
+    <h1 class="hero-headline" id="heroHeadline">
+      <span class="word"><span class="word-inner">Architecture</span></span>&nbsp;<br>
+      <span class="word"><span class="word-inner">that&nbsp;</span></span><span class="word"><span class="word-inner"><em>shapes</em></span></span>&nbsp;<br>
+      <span class="word"><span class="word-inner">Chicago.</span></span>
+    </h1>
+    <div class="hero-meta" id="heroMeta">
+      <div class="hero-meta-text">A national architecture firm delivering residential, mixed-use, commercial, and hospitality design — from schematic concept through project management. 100% Women-Owned.</div>
+    </div>
+    <div class="hero-actions" id="heroActions">
+      <a href="#contact" class="btn-primary">Start a project</a>
+      <a href="#work" class="btn-ghost">
+        View our work
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-stack">
+      <div class="hero-img" id="heroImg1" style="animation-delay:0.9s">
+        <div class="hero-img-inner" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5f335706fcfb210f5fcae708/e91c6791-c0b3-4209-926c-8fe373347d88/331+-+2.jpg')"></div>
+        <span class="hero-img-label">Mixed-Use · The Loop</span>
+      </div>
+      <div class="hero-img" id="heroImg2" style="animation-delay:1.1s">
+        <div class="hero-img-inner" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5f335706fcfb210f5fcae708/1643610817568-JBQRG8N96TSDNSQF8NU7/1220%2BFINAL.jpg')"></div>
+        <span class="hero-img-label">Commercial · Grand Crossing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS STRIP ─── -->
+<div class="stats-strip" id="statsStrip">
+  <div class="stat-item" data-target="250">
+    <div class="stat-num"><span class="count-up" data-target="250">0</span><span class="brass">+</span></div>
+    <div class="stat-label">Projects annually</div>
+  </div>
+  <div class="stat-item" data-delay="100">
+    <div class="stat-num"><span class="count-up" data-target="12">0</span></div>
+    <div class="stat-label">States licensed</div>
+  </div>
+  <div class="stat-item" data-delay="200">
+    <div class="stat-num"><span class="count-up" data-target="5">0</span></div>
+    <div class="stat-label">Years of practice</div>
+  </div>
+  <div class="stat-item" data-delay="300">
+    <div class="stat-num">100<span class="brass">%</span></div>
+    <div class="stat-label">Women-Owned</div>
+  </div>
+</div>
+
+<!-- ─── SERVICES ─── -->
+<section class="services-section" id="services">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-eyebrow">What we do</div>
+      <h2 class="section-title">Full-service architecture,<br>from concept to completion.</h2>
+    </div>
+    <a href="#" class="section-link">
+      All services
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5"/></svg>
+    </a>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="20" width="10" height="10"/><rect x="20" y="14" width="10" height="16"/><path d="M6 20L14 8l8 6"/><path d="M2 30h32"/></svg>
+      <div class="service-name">Residential</div>
+      <div class="service-desc">Single-family, multi-family, ADUs, and large-scale renovation projects across Chicago neighborhoods.</div>
+      <svg class="service-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9h12M11 5l4 4-4 4"/></svg>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="28" height="20"/><path d="M4 10l14-7 14 7"/><rect x="14" y="20" width="8" height="10"/><line x1="12" y1="16" x2="12" y2="16.01"/><line x1="24" y1="16" x2="24" y2="16.01"/></svg>
+      <div class="service-name">Mixed-Use</div>
+      <div class="service-desc">Commercial ground floors with residential above — the building type that defines Chicago's neighborhoods.</div>
+      <svg class="service-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9h12M11 5l4 4-4 4"/></svg>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="28" height="24"/><rect x="10" y="18" width="6" height="12"/><rect x="20" y="18" width="6" height="12"/><rect x="10" y="10" width="6" height="5"/><rect x="20" y="10" width="6" height="5"/></svg>
+      <div class="service-name">Commercial</div>
+      <div class="service-desc">Office, retail, automotive, medical, civic, and industrial facilities designed for long-term performance.</div>
+      <svg class="service-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9h12M11 5l4 4-4 4"/></svg>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 30V14l12-8 12 8v16"/><rect x="13" y="20" width="10" height="10"/><path d="M4 30h28"/><circle cx="18" cy="12" r="2"/></svg>
+      <div class="service-name">Hospitality</div>
+      <div class="service-desc">Hotels, restaurants, and experience-driven spaces where architecture amplifies the guest journey.</div>
+      <svg class="service-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9h12M11 5l4 4-4 4"/></svg>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="13"/><path d="M5 18h26M18 5c-4 3-6 8-6 13s2 10 6 13M18 5c4 3 6 8 6 13s-2 10-6 13"/></svg>
+      <div class="service-name">International</div>
+      <div class="service-desc">Projects beyond U.S. borders, bringing the same rigor and design intelligence to global contexts.</div>
+      <svg class="service-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9h12M11 5l4 4-4 4"/></svg>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="12" height="12"/><rect x="20" y="4" width="12" height="12"/><rect x="4" y="20" width="12" height="12"/><rect x="20" y="20" width="12" height="12"/></svg>
+      <div class="service-name">Interior Design</div>
+      <div class="service-desc">Space planning, material selection, and interior detailing for residential and commercial projects.</div>
+      <svg class="service-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9h12M11 5l4 4-4 4"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PORTFOLIO ─── -->
+<section class="portfolio-section" id="work">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-eyebrow">Selected work</div>
+      <h2 class="section-title">Projects across Chicago<br>and beyond.</h2>
+    </div>
+    <a href="#" class="section-link">
+      Full portfolio
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5"/></svg>
+    </a>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="residential">Residential</button>
+    <button class="filter-btn" data-filter="mixed-use">Mixed-Use</button>
+    <button class="filter-btn" data-filter="commercial">Commercial</button>
+    <button class="filter-btn" data-filter="hospitality">Hospitality</button>
+  </div>
+
+  <div class="portfolio-grid" id="portfolioGrid">
+    <!-- Featured wide -->
+    <article class="proj-card wide" data-category="mixed-use">
+      <div class="proj-img" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5f335706fcfb210f5fcae708/e91c6791-c0b3-4209-926c-8fe373347d88/331+-+2.jpg');"></div>
+      <div class="proj-info">
+        <div class="proj-tag">Mixed-Use · The Loop, Chicago</div>
+        <div class="proj-name">331 West — Office &amp; Residential Tower</div>
+        <div class="proj-meta">High-rise · 2023 · New construction</div>
+      </div>
+      <div class="proj-overlay"></div>
+    </article>
+
+    <!-- Narrow -->
+    <article class="proj-card narrow" data-category="mixed-use">
+      <div class="proj-img" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5f335706fcfb210f5fcae708/1643610817568-JBQRG8N96TSDNSQF8NU7/1220%2BFINAL.jpg');"></div>
+      <div class="proj-info">
+        <div class="proj-tag">Commercial Mixed-Use · Grand Crossing</div>
+        <div class="proj-name">1220 — Mixed-Use Development</div>
+        <div class="proj-meta">Site design · 2022</div>
+      </div>
+      <div class="proj-overlay"></div>
+    </article>
+
+    <!-- Three thirds -->
+    <article class="proj-card third" data-category="mixed-use">
+      <div class="proj-img" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5f335706fcfb210f5fcae708/1636091153877-4PZX92OXD9RPVIER7ZE9/5416+W_Belmont_Ave-3.jpg');"></div>
+      <div class="proj-info">
+        <div class="proj-tag">Mixed-Use · Belmont Cragin</div>
+        <div class="proj-name">5416 W. Belmont Ave.</div>
+        <div class="proj-meta">Residential + retail · 2022</div>
+      </div>
+      <div class="proj-overlay"></div>
+    </article>
+
+    <article class="proj-card third" data-category="commercial">
+      <div class="proj-img" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5f335706fcfb210f5fcae708/1638555822724-275Z4KW5SOEIY26KL85V/6323+N+Newcastle+Ave_0030002.jpg');"></div>
+      <div class="proj-info">
+        <div class="proj-tag">Community · Norwood Park</div>
+        <div class="proj-name">6323 N. Newcastle — Church</div>
+        <div class="proj-meta">Renovation + addition · 2022</div>
+      </div>
+      <div class="proj-overlay"></div>
+    </article>
+
+    <article class="proj-card third" data-category="mixed-use">
+      <div class="proj-img" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5f335706fcfb210f5fcae708/1643610680812-PQY7AT0X16HBO433CDNL/BSCO-INT-02.jpg');"></div>
+      <div class="proj-info">
+        <div class="proj-tag">Commercial · Bronzeville</div>
+        <div class="proj-name">Bronzeville Religious Site</div>
+        <div class="proj-meta">New construction · 2022</div>
+      </div>
+      <div class="proj-overlay"></div>
+    </article>
+
+    <!-- Full width -->
+    <article class="proj-card narrow" data-category="residential">
+      <div class="proj-img" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5f335706fcfb210f5fcae708/1632716898643-E01UGF9PI8LYNOPY6E5N/3700.jpg');"></div>
+      <div class="proj-info">
+        <div class="proj-tag">Mixed-Use · Wrigleyville</div>
+        <div class="proj-name">3700 — Residential Mixed-Use</div>
+        <div class="proj-meta">New construction · 2021</div>
+      </div>
+      <div class="proj-overlay"></div>
+    </article>
+
+    <article class="proj-card wide" data-category="mixed-use">
+      <div class="proj-img" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5f335706fcfb210f5fcae708/1643610408773-G85HAI7Q3L56ZA4SV4BL/11-9.jpg'); background-position: top center;"></div>
+      <div class="proj-info">
+        <div class="proj-tag">Mixed-Use · Tri-Taylor, Chicago</div>
+        <div class="proj-name">604 — Multi-Family + Ground Floor Retail</div>
+        <div class="proj-meta">New construction · 2022</div>
+      </div>
+      <div class="proj-overlay"></div>
+    </article>
+  </div>
+</section>
+
+<!-- ─── CREDENTIALS ─── -->
+<section class="credentials-section" id="about">
+  <div class="cred-inner">
+    <div class="cred-left reveal">
+      <div class="section-eyebrow">Who we are</div>
+      <h2 class="section-title">Designing with purpose,<br>for every neighborhood.</h2>
+      <p class="cred-body">BLDG Projects is a Chicago and Miami based national architecture firm delivering thoughtful design across residential, commercial, and mixed-use typologies. We work at every scale — from a single-family ADU to a multi-block mixed-use development — with the same rigor and care.</p>
+      <div class="womens-badge">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="8" cy="6" r="3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5"/></svg>
+        100% Women-Owned Business
+      </div>
+    </div>
+    <div class="cred-right reveal">
+      <div class="cred-stat">
+        <div class="cred-stat-num">250<em>+</em></div>
+        <div class="cred-stat-label">Projects annually</div>
+      </div>
+      <div class="cred-stat">
+        <div class="cred-stat-num">12</div>
+        <div class="cred-stat-label">States licensed</div>
+      </div>
+      <div class="cred-stat">
+        <div class="cred-stat-num">2</div>
+        <div class="cred-stat-label">Office locations</div>
+      </div>
+      <div class="cred-stat">
+        <div class="cred-stat-num">Full</div>
+        <div class="cred-stat-label">Service delivery</div>
+      </div>
+      <div class="states-list">
+        <span class="state-pill">IL</span><span class="state-pill">FL</span><span class="state-pill">AZ</span>
+        <span class="state-pill">AL</span><span class="state-pill">IA</span><span class="state-pill">IN</span>
+        <span class="state-pill">MI</span><span class="state-pill">MN</span><span class="state-pill">NC</span>
+        <span class="state-pill">OH</span><span class="state-pill">TX</span><span class="state-pill">WI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="testimonials-section">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-eyebrow">Client voices</div>
+      <h2 class="section-title">Built on trust,<br>sustained by results.</h2>
+    </div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-quote-mark">&ldquo;</div>
+      <p class="testimonial-text">BLDG Projects took our mixed-use concept from a rough idea to a fully permitted set of drawings — faster than any firm we'd worked with before. Their process is transparent and their designs are genuinely thoughtful.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">Marcus R.</div>
+        <div class="testimonial-role">Real estate developer · Chicago, IL</div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote-mark">&ldquo;</div>
+      <p class="testimonial-text">They understood our neighborhood — not just the zoning codes, but the character of the street. The building they designed fits Belmont Cragin like it was always there.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">Denise T.</div>
+        <div class="testimonial-role">Property owner · Belmont Cragin</div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote-mark">&ldquo;</div>
+      <p class="testimonial-text">As a first-time developer, I needed a firm that could guide me through every stage. BLDG Projects was exactly that — patient, knowledgeable, and invested in the outcome.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">James K.</div>
+        <div class="testimonial-role">First-time developer · Wrigleyville</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ─── -->
+<section class="process-section">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-eyebrow">How we work</div>
+      <h2 class="section-title">From first conversation<br>to ribbon cutting.</h2>
+    </div>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="process-dot">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M9 4v5l3 3"/><circle cx="9" cy="9" r="7"/></svg>
+      </div>
+      <div class="process-step-name">Discovery</div>
+      <div class="process-step-desc">We begin by understanding your project goals, site constraints, budget, and timeline. No paperwork yet — just a conversation.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-dot">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><rect x="3" y="3" width="12" height="12" rx="1"/><path d="M6 6h6M6 9h6M6 12h3"/></svg>
+      </div>
+      <div class="process-step-name">Schematic Design</div>
+      <div class="process-step-desc">Concept drawings, massing studies, and site plans that explore the design possibilities before committing to a direction.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-dot">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M4 14l3-3 2 2 5-6"/><circle cx="9" cy="9" r="7"/></svg>
+      </div>
+      <div class="process-step-name">Permitting</div>
+      <div class="process-step-desc">Construction documents and permit submissions handled in-house. We navigate city and state requirements so you don't have to.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-dot">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3 15l4-8 4 4 3-6"/><path d="M3 3h12v12"/></svg>
+      </div>
+      <div class="process-step-name">Project Management</div>
+      <div class="process-step-desc">On-site oversight, contractor coordination, and RFI management through construction completion and occupancy.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <div class="section-eyebrow">Get in touch</div>
+      <h2 class="section-title" style="color:var(--warm-white);">Let's build<br><em style="font-style:italic;color:var(--brass-lt);">something.</em></h2>
+      <p class="contact-intro">Whether you have a permit-ready project or an idea on a napkin, we'd like to hear about it. We respond within one business day.</p>
+      <div class="contact-offices">
+        <div>
+          <div class="office-label">Chicago</div>
+          <div class="office-addr">4468 N. Elston Ave.<br>Chicago, IL 60630</div>
+          <div class="office-hours">773-784-9755</div>
+        </div>
+        <div>
+          <div class="office-label">Miami</div>
+          <div class="office-addr">1680 Michigan Ave.<br>Suite 700, Miami Beach, FL</div>
+          <div class="office-hours">By appointment</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" placeholder="Jane Smith">
+        </div>
+        <div class="form-field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="jane@company.com">
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="project-type">Project type</label>
+        <select id="project-type">
+          <option value="" disabled selected>Select a category</option>
+          <option>Residential — New construction</option>
+          <option>Residential — Renovation</option>
+          <option>Mixed-Use development</option>
+          <option>Commercial / Industrial</option>
+          <option>Hospitality</option>
+          <option>International project</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="message">Tell us about your project</label>
+        <textarea id="message" placeholder="Location, scope, timeline, and anything else that would help us understand your vision..."></textarea>
+      </div>
+      <button type="button" class="form-submit">Send message</button>
+      <div class="form-promise">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg>
+        We respond within 1 business day
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">BLDG<span>&nbsp;Projects</span></div>
+      <p class="footer-tagline">Architecture + Design. Chicago &amp; Miami based, nationally licensed, community focused.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/bldgprojects" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://linkedin.com/company/bldg-proj" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://facebook.com/bldgproj" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Work</div>
+      <ul class="footer-links">
+        <li><a href="#">Residential</a></li>
+        <li><a href="#">Mixed-Use</a></li>
+        <li><a href="#">Commercial</a></li>
+        <li><a href="#">Hospitality</a></li>
+        <li><a href="#">International</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Firm</div>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Community Outreach</a></li>
+        <li><a href="#">Journal</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:7737849755">773-784-9755</a></li>
+        <li><a href="mailto:info@bldgproj.com">info@bldgproj.com</a></li>
+        <li><a href="#">Start a project</a></li>
+        <li><a href="#">Contractor resources</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 BLDG Projects, Inc. All rights reserved.</div>
+    <div class="footer-license">Licensed: IL · FL · AZ · AL · IA · IN · MI · MN · NC · OH · TX · WI</div>
+  </div>
+</footer>
+
+<script>
+/* ─── CURSOR ─── */
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+const label = document.getElementById('cursorLabel');
+let mx = -100, my = -100, rx = -100, ry = -100;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
+  dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+  ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  label.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('.proj-card').forEach(c => {
+  c.addEventListener('mouseenter', () => document.body.classList.add('hover-project'));
+  c.addEventListener('mouseleave', () => document.body.classList.remove('hover-project'));
+});
+
+/* ─── NAV SCROLL ─── */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ─── MOBILE NAV ─── */
+const menuBtn = document.getElementById('menuBtn');
+const mobileNav = document.getElementById('mobileNav');
+const closeNav = document.getElementById('closeNav');
+menuBtn.addEventListener('click', () => mobileNav.classList.add('open'));
+closeNav.addEventListener('click', () => mobileNav.classList.remove('open'));
+function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+/* ─── HERO ANIMATION ─── */
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('heroGrid').classList.add('loaded');
+  setTimeout(() => document.getElementById('heroEyebrow').classList.add('visible'), 700);
+  const words = document.querySelectorAll('.word-inner');
+  words.forEach((w, i) => setTimeout(() => w.classList.add('visible'), 900 + i * 100));
+  setTimeout(() => document.getElementById('heroMeta').classList.add('visible'), 1300);
+  setTimeout(() => document.getElementById('heroActions').classList.add('visible'), 1500);
+  // Hero image reveals
+  const imgs = ['heroImg1','heroImg2'];
+  imgs.forEach((id,i) => {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if(el) el.classList.add('reveal');
+    }, 900 + i * 200);
+  });
+});
+
+/* ─── INTERSECTION OBSERVER ─── */
+const revealOpts = { threshold: 0.12 };
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, revealOpts);
+
+document.querySelectorAll('.reveal, .stat-item, .proc-step, .testimonial-card, .proj-card, .process-step').forEach(el => {
+  revealObs.observe(el);
+});
+
+/* Stagger children */
+document.querySelectorAll('.stat-item').forEach((el, i) => {
+  el.style.transitionDelay = (i * 100) + 'ms';
+});
+document.querySelectorAll('.testimonial-card').forEach((el, i) => {
+  el.style.transitionDelay = (i * 120) + 'ms';
+});
+document.querySelectorAll('.proj-card').forEach((el, i) => {
+  el.style.transitionDelay = (i * 80) + 'ms';
+});
+document.querySelectorAll('.process-step').forEach((el, i) => {
+  el.style.transitionDelay = (i * 100) + 'ms';
+});
+
+/* ─── COUNT-UP ─── */
+function countUp(el, target, duration) {
+  let start = 0;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    el.textContent = Math.round(start);
+    if (start >= target) clearInterval(timer);
+  }, 16);
+}
+const statsObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.count-up').forEach(el => {
+        countUp(el, parseInt(el.dataset.target), 1200);
+      });
+      statsObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+const statsStrip = document.getElementById('statsStrip');
+if (statsStrip) statsObs.observe(statsStrip);
+
+/* ─── PORTFOLIO FILTER ─── */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projCards = document.querySelectorAll('.proj-card');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    projCards.forEach(card => {
+      const match = filter === 'all' || card.dataset.category === filter;
+      card.style.display = match ? '' : 'none';
+    });
+  });
+});
+
+/* ─── PARALLAX HERO ─── */
+const heroImgs = document.querySelectorAll('.hero-img-inner');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  heroImgs.forEach(img => {
+    img.style.transform = `scale(1.04) translateY(${scrollY * 0.15}px)`;
+  });
+}, { passive: true });
+
+/* ─── FORM SUBMIT ─── */
+document.querySelector('.form-submit').addEventListener('click', function() {
+  this.textContent = 'Message sent ✓';
+  this.style.background = '#7A5F38';
+  setTimeout(() => { this.textContent = 'Send message'; this.style.background = ''; }, 3000);
+});
+</script>
+</body>
+</html>

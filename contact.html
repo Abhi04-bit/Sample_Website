@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Contact | STUDIO ARCHITECT</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f2f0ed",
+                    "secondary-fixed": "#ffdeae",
+                    "on-surface": "#1b1c1a",
+                    "surface-bright": "#fbf9f5",
+                    "tertiary-fixed": "#e8e2d9",
+                    "on-primary-fixed": "#1c1b19",
+                    "sand": "#F2EDE4",
+                    "fog": "#E8E4DC",
+                    "tertiary-container": "#1d1b16",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#868380",
+                    "on-secondary-fixed-variant": "#59431d",
+                    "on-surface-variant": "#494740",
+                    "brass-lt": "#D4B896",
+                    "secondary-fixed-dim": "#e3c291",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#1b1c1a",
+                    "primary-fixed-dim": "#cac6c2",
+                    "surface-container-high": "#eae8e4",
+                    "tertiary-fixed-dim": "#cbc6be",
+                    "on-primary-fixed-variant": "#484644",
+                    "error": "#ba1a1a",
+                    "primary-container": "#1c1b19",
+                    "primary": "#000000",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f5f3ef",
+                    "charcoal-2": "#2A2924",
+                    "on-secondary-fixed": "#281900",
+                    "secondary-container": "#fddba9",
+                    "tertiary": "#000000",
+                    "on-tertiary-container": "#87837c",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#e6e2de",
+                    "slate-2": "#6B6763",
+                    "on-secondary-container": "#785e36",
+                    "surface-dim": "#dbdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "ink": "#1C1B19",
+                    "surface-variant": "#e4e2de",
+                    "outline": "#7a776f",
+                    "surface-container-highest": "#e4e2de",
+                    "deep-dark": "#141412",
+                    "secondary": "#735a33",
+                    "surface": "#fbf9f5",
+                    "brass-dk": "#7A5F38",
+                    "background": "#fbf9f5",
+                    "surface-tint": "#605e5b",
+                    "outline-variant": "#cbc6bd",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#494640",
+                    "inverse-surface": "#30312e",
+                    "on-tertiary-fixed": "#1d1b16",
+                    "inverse-primary": "#cac6c2",
+                    "surface-container": "#efeeea"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter-min": "1.5rem",
+                    "component-gap": "1.5rem",
+                    "section-gap-max": "9rem",
+                    "base-unit": "4px",
+                    "gutter-max": "4rem",
+                    "section-gap-min": "5rem",
+                    "max-width": "1280px"
+            },
+            "fontFamily": {
+                    "body-main": ["DM Sans"],
+                    "headline-section": ["EB Garamond"],
+                    "ui-eyebrow": ["DM Sans"],
+                    "nav-button": ["DM Sans"],
+                    "display-hero": ["EB Garamond"],
+                    "headline-section-mobile": ["EB Garamond"],
+                    "card-heading": ["EB Garamond"],
+                    "caption": ["DM Sans"],
+                    "display-hero-mobile": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "body-main": ["15px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                    "headline-section": ["44px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "ui-eyebrow": ["11px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "nav-button": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.08em", "fontWeight": "500"}],
+                    "display-hero": ["96px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                    "headline-section-mobile": ["28px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "card-heading": ["22px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "caption": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-hero-mobile": ["52px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-main selection:bg-brass-lt selection:text-ink overflow-x-hidden">
+    <!-- Custom trailing cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <div class="cursor-label" id="cursor-label"></div>
+
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 ease-in-out" id="nav-shell">
+        <div class="flex justify-between items-center px-6 md:px-16 py-4 w-full max-w-max-width mx-auto">
+            <a class="font-headline-section text-2xl tracking-tighter text-ink" href="index.html">STUDIO ARCHITECT</a>
+            <div class="hidden md:flex gap-8">
+                <a class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-secondary transition-colors duration-250" href="work.html">Portfolio</a>
+                <a class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-secondary transition-colors duration-250" href="index.html">Practice</a>
+                <a class="font-nav-button text-nav-button uppercase text-on-surface-variant hover:text-secondary transition-colors duration-250" href="services.html">Services</a>
+                <a class="font-nav-button text-nav-button uppercase text-secondary border-b border-secondary" href="contact.html">Contact</a>
+            </div>
+            <button class="bg-primary-container text-on-primary text-nav-button uppercase px-6 py-2 tracking-widest hover:bg-brass-lt hover:text-ink transition-colors duration-250" onclick="window.location.href='contact.html'">
+                Inquire
+            </button>
+            <button class="md:hidden text-ink flex flex-col gap-1.5 p-2" id="mobile-menu-btn" aria-label="Open Mobile Menu">
+                <span class="w-6 h-0.5 bg-ink"></span>
+                <span class="w-6 h-0.5 bg-ink"></span>
+                <span class="w-6 h-0.5 bg-ink"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-ink/95 flex flex-col justify-center items-center gap-8 transition-opacity duration-300 ease-in-out opacity-0 hidden">
+        <button class="absolute top-6 right-6 text-surface-bright text-4xl" id="mobile-menu-close" aria-label="Close Mobile Menu">&times;</button>
+        <a class="font-headline-section text-3xl text-surface-bright hover:text-brass-lt transition-colors" href="work.html">Portfolio</a>
+        <a class="font-headline-section text-3xl text-surface-bright hover:text-brass-lt transition-colors" href="index.html">Practice</a>
+        <a class="font-headline-section text-3xl text-surface-bright hover:text-brass-lt transition-colors" href="services.html">Services</a>
+        <a class="font-headline-section text-3xl text-brass-lt border-b border-brass-lt" href="contact.html">Contact</a>
+        <button class="mt-8 bg-brass-lt text-ink font-nav-button text-nav-button uppercase px-8 py-3 rounded-sm hover:bg-surface-bright transition-colors" onclick="window.location.href='contact.html'">Inquire</button>
+    </div>
+
+    <main class="pt-24">
+        <!-- Hero Section -->
+        <header class="relative bg-ink py-section-gap-min md:py-section-gap-max overflow-hidden">
+            <div class="absolute inset-0 blueprint-grid opacity-20"></div>
+            <!-- Technical Annotation Graphics -->
+            <div class="absolute top-1/4 right-10 opacity-30 select-none hidden lg:block">
+                <span class="text-brass-lt font-ui-eyebrow text-[10px] tracking-[0.2em] block mb-2">01. LAT: 41.8781° N</span>
+                <span class="text-brass-lt font-ui-eyebrow text-[10px] tracking-[0.2em] block">02. LONG: 87.6298° W</span>
+            </div>
+            <div class="max-w-max-width mx-auto px-6 md:px-16 relative z-10">
+                <span class="font-ui-eyebrow text-brass-lt uppercase block mb-6 reveal">Phase 01: Dialogue</span>
+                <h1 class="font-display-hero-mobile md:font-display-hero text-display-hero-mobile md:text-display-hero text-surface-bright max-w-4xl reveal" style="transition-delay: 100ms;">
+                    Let's build <span class="italic text-brass-lt">something.</span>
+                </h1>
+            </div>
+        </header>
+
+        <!-- Main Contact Grid -->
+        <section class="max-w-max-width mx-auto px-6 md:px-16 py-section-gap-min">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-component-gap lg:gap-16">
+                <!-- Left Column: Office Cards -->
+                <div class="lg:col-span-5 flex flex-col gap-12">
+                    <div class="reveal" style="transition-delay: 200ms;">
+                        <h2 class="font-headline-section text-headline-section-mobile text-ink border-b border-fog pb-4 mb-8">Our Studios</h2>
+                        <div class="space-y-12">
+                            <!-- Chicago Studio -->
+                            <div class="group">
+                                <div class="relative overflow-hidden mb-6 border border-fog aspect-video rounded-[4px]">
+                                    <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Chicago Studio office interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-Qb8ElkLc3cQehD4kZm9ngGNobVB_nxXYSeh8pgkQU5xQnhCcvZV79nwFmN9Ea9R6sLFaLImWcPtN_IicQg-gdc3awpigJnC3eOdc3Px2Kx8eiqVIoqASJYX6ncFk9SgLRgxpfsZlKuA9vjdSvof5acFnXmjoSZiYnCbBOQwbtcXbqzGzbXhbqKXhUPQhN6XK3bUxw1RzxLPvwOT7iUNytFnogzlDgZitRntlh_VO2BsdUQto0hcp"/>
+                                </div>
+                                <h3 class="font-card-heading text-card-heading mb-2">Chicago</h3>
+                                <p class="font-body-main text-slate-2 mb-4">
+                                    801 S Financial Pl, Suite 1200<br/>
+                                    Chicago, IL 60605
+                                </p>
+                                <div class="flex flex-col gap-2 font-caption text-caption text-ink">
+                                    <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">schedule</span> Mon—Fri: 09:00 - 18:00</span>
+                                    <a class="flex items-center gap-2 hover:text-secondary transition-colors" href="tel:+13125550192"><span class="material-symbols-outlined text-[16px]">call</span> +1 (312) 555-0192</a>
+                                    <a class="flex items-center gap-2 hover:text-secondary transition-colors" href="mailto:chi@studioarchitect.com"><span class="material-symbols-outlined text-[16px]">mail</span> chi@studioarchitect.com</a>
+                                </div>
+                            </div>
+                            <!-- Miami Studio -->
+                            <div class="group">
+                                <div class="relative overflow-hidden mb-6 border border-fog aspect-video rounded-[4px]">
+                                    <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Miami Studio office interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEp28GGHToedGNPNjenweOaLNNVWFuU4qS73cANvzGsa3Gz1FkadFBXg5ljBoLQrWkto3z4ksJoS8LiU6Ma36arJs7ZpMh6NwujNfeMi4L0Hz5eJADvkcjXUNuCVKJ57hzVXPksxLe-ESz8YbSR1tWK8SNo2s312Y8-uv0IpW_j2bd19aZc-fmoGqqgzjY-fkL11kPQ5YV2Why_jaI4hFE_t1Vb03MFwcIp94mNeMlpVIWP8t66TRQ"/>
+                                </div>
+                                <h3 class="font-card-heading text-card-heading mb-2">Miami</h3>
+                                <p class="font-body-main text-slate-2 mb-4">
+                                    3841 NE 2nd Ave, #402<br/>
+                                    Miami, FL 33137
+                                </p>
+                                <div class="flex flex-col gap-2 font-caption text-caption text-ink">
+                                    <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">schedule</span> Mon—Fri: 08:30 - 17:30</span>
+                                    <a class="flex items-center gap-2 hover:text-secondary transition-colors" href="tel:+13055550284"><span class="material-symbols-outlined text-[16px]">call</span> +1 (305) 555-0284</a>
+                                    <a class="flex items-center gap-2 hover:text-secondary transition-colors" href="mailto:mia@studioarchitect.com"><span class="material-symbols-outlined text-[16px]">mail</span> mia@studioarchitect.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column: Contact Form -->
+                <div class="lg:col-span-7 bg-surface-container-lowest border border-fog p-8 md:p-12 rounded-[4px] reveal" style="transition-delay: 300ms;">
+                    <div id="form-container">
+                        <form class="space-y-8" id="contact-form">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-2">
+                                    <label class="font-ui-eyebrow uppercase text-slate-2">Your Name</label>
+                                    <input class="w-full bg-transparent border-0 border-b border-fog focus:ring-0 focus:border-brass-dk py-3 font-body-main placeholder:text-outline-variant outline-none" placeholder="Full name" required="" type="text"/>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="font-ui-eyebrow uppercase text-slate-2">Email Address</label>
+                                    <input class="w-full bg-transparent border-0 border-b border-fog focus:ring-0 focus:border-brass-dk py-3 font-body-main placeholder:text-outline-variant outline-none" placeholder="email@example.com" required="" type="email"/>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-2">
+                                    <label class="font-ui-eyebrow uppercase text-slate-2">Project Type</label>
+                                    <select class="w-full bg-transparent border-0 border-b border-fog focus:ring-0 focus:border-brass-dk py-3 font-body-main appearance-none cursor-pointer outline-none">
+                                        <option>Residential Architecture</option>
+                                        <option>Commercial Development</option>
+                                        <option>Civic / Public Space</option>
+                                        <option>Interior Design</option>
+                                        <option>Adaptive Reuse</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="font-ui-eyebrow uppercase text-slate-2">Estimated Timeline</label>
+                                    <select class="w-full bg-transparent border-0 border-b border-fog focus:ring-0 focus:border-brass-dk py-3 font-body-main appearance-none cursor-pointer outline-none">
+                                        <option>Next 6 Months</option>
+                                        <option>6 - 12 Months</option>
+                                        <option>12 - 24 Months</option>
+                                        <option>Early Planning (2+ years)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="font-ui-eyebrow uppercase text-slate-2">Project Brief</label>
+                                <textarea class="w-full bg-transparent border-0 border-b border-fog focus:ring-0 focus:border-brass-dk py-3 font-body-main placeholder:text-outline-variant resize-none outline-none" placeholder="Tell us about the site and your vision..." required="" rows="5"></textarea>
+                            </div>
+                            <div class="pt-4">
+                                <button class="group flex items-center gap-4 bg-primary text-on-primary px-10 py-5 font-nav-button uppercase tracking-widest hover:bg-brass-dk hover:text-ink transition-all duration-300 rounded-[2px]" type="submit">
+                                    Initiate Project
+                                    <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Success State (Hidden by default) -->
+                    <div class="hidden flex flex-col items-center justify-center text-center py-20 animate-in fade-in slide-in-from-bottom-4 duration-1000" id="success-state">
+                        <span class="material-symbols-outlined text-brass-lt text-[64px] mb-6" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        <h2 class="font-headline-section text-headline-section text-ink italic mb-4">Thank you for your message.</h2>
+                        <p class="font-body-main text-slate-2 max-w-md">Our practice will review your project brief and reach out within 48 hours to schedule an initial consultation.</p>
+                        <button class="mt-10 font-ui-eyebrow uppercase text-secondary tracking-widest border-b border-secondary pb-1" onclick="window.location.reload()">Reset Form</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Drawing CTA -->
+        <section class="max-w-max-width mx-auto px-6 md:px-16 mb-section-gap-max">
+            <div class="relative bg-sand p-12 md:p-20 overflow-hidden border border-fog rounded-[4px] reveal">
+                <div class="absolute right-0 top-0 blueprint-grid w-1/3 h-full opacity-10"></div>
+                <div class="relative z-10">
+                    <h2 class="font-headline-section text-headline-section-mobile md:text-headline-section text-ink mb-6">Looking for our Archive?</h2>
+                    <p class="font-body-main text-slate-2 max-w-xl mb-10">Historical project documentation, research papers, and structural technical data are available upon request for academic or collaborative inquiries.</p>
+                    <a class="inline-block font-nav-button uppercase text-ink border border-ink px-8 py-3 hover:bg-ink hover:text-surface-bright transition-all rounded-[2px]" href="#">Request Access</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-ink dark:bg-deep-dark w-full mt-section-gap-max border-t border-charcoal-2">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-component-gap px-6 md:px-16 py-section-gap-min max-w-max-width mx-auto">
+            <!-- Brand Column -->
+            <div class="col-span-1 md:col-span-1">
+                <h3 class="font-headline-section text-headline-section-mobile text-brass-lt mb-6">STUDIO ARCHITECT</h3>
+                <p class="font-body-main text-caption text-slate-2">Redefining the civic landscape through structural honesty and precise craftsmanship.</p>
+            </div>
+            <!-- Empty Grid for Spacing -->
+            <div class="hidden md:block"></div>
+            <!-- Navigation Links -->
+            <div class="col-span-1">
+                <h4 class="font-ui-eyebrow uppercase text-tertiary-fixed mb-6 tracking-widest">Office</h4>
+                <div class="flex flex-col gap-4">
+                    <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Privacy Policy</a>
+                    <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Terms of Service</a>
+                    <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Press Kit</a>
+                    <a class="font-body-main text-caption text-slate-2 hover:text-surface-bright transition-colors" href="#">Archive</a>
+                </div>
+            </div>
+            <!-- Contact Summary -->
+            <div class="col-span-1">
+                <h4 class="font-ui-eyebrow uppercase text-tertiary-fixed mb-6 tracking-widest">Inquiries</h4>
+                <p class="font-body-main text-caption text-slate-2 mb-2">General: hello@studioarchitect.com</p>
+                <p class="font-body-main text-caption text-slate-2">Careers: join@studioarchitect.com</p>
+                <p class="font-body-main text-caption text-slate-2 mt-8">© 2026 Studio Architect. Built with Structural Honesty.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shared JS -->
+    <script src="main.js"></script>
+
+    <!-- Page Specific Script (Form Submission & Success State Toggle) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contact-form');
+            const formContainer = document.getElementById('form-container');
+            const successState = document.getElementById('success-state');
+
+            if (contactForm && formContainer && successState) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    formContainer.classList.add('hidden');
+                    successState.classList.remove('hidden');
+                    window.scrollTo({
+                        top: formContainer.parentElement.offsetTop - 120,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
